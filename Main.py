@@ -103,7 +103,7 @@ print("\nConfusion Matrix for Train_set")
 print(confusion_matrix(np.array(clust_train), train_Out))
 print("\nConfusion Matrix for Test_set")
 print(confusion_matrix(np.array(clust_test), test_Out))
-
+print("\n\n")
 
 # Calculate the distances for Train set    
 clust_euc = list(map(lambda x: np.where(x == np.min(x))[0][0] ,pairwise_distances(train_In , centers ) ))
@@ -129,7 +129,6 @@ print("Sqeuclidean_dist:| %s" % (np.round(len(np.where(clust_sqeucl == train_Out
 print("Cityblock_dist:  | %s" % (np.round(len(np.where(clust_city == train_Out)[0])/len(train_Out),3))+" | %s |"%(np.round(len(np.where(clust_city_test == test_Out)[0])/len(test_Out),3)))
 print("----------------------------------")
 print("\n")
-
 ############################################################
 
 """Task3"""
