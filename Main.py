@@ -344,7 +344,8 @@ weights = np.array([np.random.normal(1) , np.random.normal(1) , 1 ,
 
 
 
-
+# Something is wrong
+# The mse error has to decrease
 hta = 0.0001
 w_neo = grdmse(weights)
 for i in range(10000):    
