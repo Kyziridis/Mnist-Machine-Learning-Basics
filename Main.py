@@ -72,10 +72,12 @@ print("Most disimilar numbers:" + str(x1) + " with distance: " + str(y1) )
 print("--------------------------------------------------------------")
 print("\n")
 
+
+
+"""Task2"""
 flag11 = input("Move to the next task?  [y/n] : ")
 if flag11 == 'y' or flag11 == 'Y' or flag11 == 'yes':
-    """Task2"""
-
+    
     print("\n---TASK_2---")
     print("Calculate different distances between the train/test set and the centers.\nImplement the K-NN algorithm and measure the accuracy for the two datasets.")
     print("\n")
@@ -127,11 +129,12 @@ if flag11 == 'y' or flag11 == 'Y' or flag11 == 'yes':
     print("Cityblock_dist:  | %s" % (np.round(len(np.where(clust_city == train_Out)[0])/len(train_Out),3))+" | %s |"%(np.round(len(np.where(clust_city_test == test_Out)[0])/len(test_Out),3)))
     print("----------------------------------")
     print("\n")
-############################################################
 
+
+"""Task3"""
 flag22 = input("Move to the next task?  [y/n] : ")
 if flag22 == 'y' or flag22 == 'Y' or flag22 == 'yes':
-    """Task3"""
+    
     print("\n---TASK_3---")
     print("Implement the Naiv-Bayes classifier for classes: 5 & 7.\nCalculate prior, likelihood and posterior probabilities.\nClassify the new image to that class with bigger posterior probability.")
     
@@ -201,9 +204,7 @@ if flag22 == 'y' or flag22 == 'Y' or flag22 == 'yes':
     # Form the NaivBayes classifier into all images for 5 and 7
     nb = list(map(NaivBayes , od[5]+od[7]))
     Accuracy = (len(np.where(np.asarray(nb) == xx[1])[0])/len(xx[1]) )*100
-    
-    
-    
+            
     # Plotting the two histograms for the variance feature
     flag1 = input("\nPlot variance-feature histogram?  [y/n] :")
     if flag1 == "y" or flag1=="Y" or flag1 == "yes":
@@ -217,11 +218,13 @@ if flag22 == 'y' or flag22 == 'Y' or flag22 == 'yes':
         pylab.savefig('Histogram for variances.png')
         pylab.show()
 
+
+"""Task4"""
 flag33 = input("Move to the next task?  [y/n] : ")
 if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
-    """Task4"""
+    
     np.random.seed(666)
-    def Perceptron(x , label, hta=0.00001):
+    def Perceptron(x , label, hta=0.01):
         # Generate random weights
         np.random.seed(666)
         W = np.random.randn(x.shape[1],10)
@@ -265,6 +268,7 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
             acc_l.append(acc)
             print("Epoch: %s "%i + " Accuracy: " + str(acc) + "")
             i += 1
+        # Plot the Accuracy vs Error    
         plt.figure()    
         plt.title("Accuracy Vs Error")
         plt.xlabel("Iterations")
@@ -286,13 +290,66 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
 
 
 
+"""Task5"""
+
+def sigmoid(x):
+    return 1/ (1+np.exp(-x)) 
+    
+def xor_net(x1,x2,w):
+    z1 = x1*w[0] + x2*w[1] + w[2]
+    z2 = x1*w[3] + x2*w[4] + w[5]
+    
+    a1 = sigmoid(z1)
+    a2 = sigmoid(z2)
+    
+    z3 = a1*w[6] + a2*w[7] + w[8]
+    
+    out = sigmoid(z3)
+    out = np.array(out)
+    
+    out[out>=0.5] =1 
+    out[out!=1] = 0
+    return out
+
+def mse(weights):
+    target = np.array([0.,1.,1.,0.])
+    out1 = xor_net(0.,0.,weights)
+    out2 = xor_net(0.,1.,weights)
+    out3 = xor_net(1.,0., weights)
+    out4 = xor_net(1.,1., weights)
+    out = np.hstack((out1, out2, out3, out4))
+    mse = np.square(np.subtract(target, out)).mean()    
+    return np.array(mse)
+       
+def grdmse(weights):
+    epsilon = 0.001
+    W_new = []
+    for i in range(len(weights)):
+        temp = np.copy(weights)
+        temp[i] = temp[i] + epsilon
+        Wg = temp
+        #print(Wg)
+        mplampla = (mse(Wg) - mse(weights))/epsilon
+        #print("\n")
+        #print("mse(Wg): %s"%mse(Wg) + "  mse(palio): %s"%mse(weights) + "  olo: %s"%mplampla)
+        W_new.append( (mse(Wg) - mse(weights))/epsilon  )
+    return np.array(W_new)        
+
+
+np.random.seed(666)
+weights = np.array([np.random.normal(1) , np.random.normal(1) , 1 , 
+                    np.random.normal(1) , np.random.normal(1) , 1 , 
+                    np.random.normal(1) , np.random.normal(1) , 1] ,dtype=np.float64)
 
 
 
 
 
-
-
+hta = 0.0001
+w_neo = grdmse(weights)
+for i in range(10000):    
+    w_neo = w_neo - hta*grdmse(w_neo)
+    print(mse(w_neo))
 
 
 
