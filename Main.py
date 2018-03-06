@@ -75,6 +75,7 @@ print("\n")
 
 
 """Task2"""
+    
 flag11 = input("Move to the next task?  [y/n] : ")
 if flag11 == 'y' or flag11 == 'Y' or flag11 == 'yes':
     
@@ -287,9 +288,6 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
     
 
 
-
-
-
 """Task5"""
 
 def sigmoid(x):
@@ -305,10 +303,7 @@ def xor_net(x1,x2,w):
     z3 = a1*w[6] + a2*w[7] + w[8]
     
     out = sigmoid(z3)
-    out = np.array(out)
-    
-    out[out>=0.5] =1 
-    out[out!=1] = 0
+    out = np.array(out)   
     return out
 
 def mse(weights):
@@ -317,9 +312,12 @@ def mse(weights):
     out2 = xor_net(0.,1.,weights)
     out3 = xor_net(1.,0., weights)
     out4 = xor_net(1.,1., weights)
-    out = np.hstack((out1, out2, out3, out4))
-    mse = np.square(np.subtract(target, out)).mean()    
-    return np.array(mse)
+    out = np.array([out1, out2, out3, out4])
+    mse = np.square(np.subtract(target, out)).mean()
+    out[out>=0.5] = 1
+    out[out!=1] = 0
+    miss = len(np.where(out != target)[0])
+    return np.array(mse) , miss
        
 def grdmse(weights):
     epsilon = 0.001
@@ -328,31 +326,27 @@ def grdmse(weights):
         temp = np.copy(weights)
         temp[i] = temp[i] + epsilon
         Wg = temp
-        #print(Wg)
-        mplampla = (mse(Wg) - mse(weights))/epsilon
-        #print("\n")
-        #print("mse(Wg): %s"%mse(Wg) + "  mse(palio): %s"%mse(weights) + "  olo: %s"%mplampla)
-        W_new.append( (mse(Wg) - mse(weights))/epsilon  )
+        W_new.append( (mse(Wg)[0] - mse(weights)[0])/epsilon  )
     return np.array(W_new)        
 
-
-np.random.seed(666)
-weights = np.array([np.random.normal(1) , np.random.normal(1) , 1 , 
-                    np.random.normal(1) , np.random.normal(1) , 1 , 
-                    np.random.normal(1) , np.random.normal(1) , 1] ,dtype=np.float64)
-
-
-
-
-# Something is wrong
-# The mse error has to decrease
-hta = 0.0001
-w_neo = grdmse(weights)
-for i in range(10000):    
-    w_neo = w_neo - hta*grdmse(w_neo)
-    print(mse(w_neo))
-
-
+def testing():
+    np.random.seed(666)
+    #weights = np.random.normal(size=9).round(3)
+    weights = np.random.uniform(0, 1, 9)
+    hta = 0.01
+    mse_plot = []
+    i = 1
+    while mse(weights)[1] != 0:    
+        weights = weights - hta*grdmse(weights)
+        mse_plot.append(mse(weights))    
+        print("Epoch: %s  "%i + "Error: " + str(mse(weights)[0]) + " Missclassified: " + str(mse(weights)[1]))
+        i += 1
+    plt.figure()
+    plt.plot(mse_plot)
+    plt.show()
+    
+    
+testing()
 
 
 
