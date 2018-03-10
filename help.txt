@@ -1,0 +1,15 @@
+This is a project for Neural-Networks Master_course in Leiden University.
+There are multiple tasks.
+
+Dependencies: for the Main.py
+
+collections
+numpy
+itertools
+sklearn
+matplotlib
+
+Dependencies for Distance_plot.py:
+
+networkx
+scipy
