@@ -1,6 +1,8 @@
 This is a project for Neural-Networks Master_course in Leiden University.
 There are multiple tasks.
 
+First run Main.py and then Plots.py
+
 Dependencies: for the Main.py
 
 collections
@@ -9,7 +11,10 @@ itertools
 sklearn
 matplotlib
 
-Dependencies for Distance_plot.py:
+Dependencies for Plots.py:
 
+matplotlib
 networkx
+graphviz
+pygraphviz
 scipy
