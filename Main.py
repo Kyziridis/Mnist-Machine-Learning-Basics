@@ -240,7 +240,10 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
     def Perceptron(x , label, hta=0.01):
         # Generate random weights
         np.random.seed(666)
-        W = np.random.randn(x.shape[1],10)
+        # Construct the bias
+        ones = np.ones(len(x))
+        x = np.hstack((x , ones.reshape(-1,1))) 
+        W = np.random.randn(x.shape[1] , 10)
         z = x@W
         
         # Calculate the hot vector of prediction 
@@ -300,7 +303,8 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
     y , accur, weights_trained = Perceptron(train_In , train_Out,hta=float(flag44) )  
     
     # Multiply the trained weights with the test_set
-    mat = test_In@weights_trained
+    test_wth_bias = np.hstack((test_In , np.ones(len(test_In)).reshape(-1,1)))
+    mat = test_wth_bias@weights_trained
     classification = list(map(np.argmax , mat))
     
     # Measure Test_set accuracy
@@ -363,11 +367,12 @@ def testing():
     i = 1
     while mse(weights)[1] != 0:    
         weights = weights - hta*grdmse(weights)
-        mse_plot.append(mse(weights))    
+        yy , _ = mse(weights)
+        mse_plot.append(yy)    
         print("Epoch: %s  "%i + "Error: " + str(mse(weights)[0]) + " Missclassified: " + str(mse(weights)[1]))
         i += 1
     plt.figure()
-    plt.plot(mse_plot[0])
+    plt.plot(mse_plot)
     plt.show()
 
 

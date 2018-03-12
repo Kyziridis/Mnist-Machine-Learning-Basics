@@ -37,8 +37,15 @@ G.draw('out.png', format='png', prog='neato')
 
 
 # Centers Visualization
-for i in range(10):
-    plt.imshow(centers[i].reshape(16,16), cmap='magma')
-    plt.axis('off')
-    plt.show()
 
+fig,ax = plt.subplots(nrows=2, ncols=5)
+i = 0
+for row in ax:
+    for col in row:
+        col.imshow(centers[i].reshape(16,16), cmap='magma')
+        i = i+1
+plt.savefig('DigitsCenters.png')
+plt.show()    
+    
+        
+        
