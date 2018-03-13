@@ -93,7 +93,7 @@ print("\n")
 
 """Task2"""
     
-flag11 = input("Move to the next task?  [y/n] : ")
+flag11 = input("Move to task_2?  [y/n] : ")
 if flag11 == 'y' or flag11 == 'Y' or flag11 == 'yes':
     
     print("\n---TASK_2---")
@@ -154,7 +154,7 @@ if flag11 == 'y' or flag11 == 'Y' or flag11 == 'yes':
 
 
 """Task3"""
-flag22 = input("Move to the next task?  [y/n] : ")
+flag22 = input("\nMove to task_3?  [y/n] : ")
 if flag22 == 'y' or flag22 == 'Y' or flag22 == 'yes':
     
     print("\n---TASK_3---")
@@ -233,7 +233,7 @@ if flag22 == 'y' or flag22 == 'Y' or flag22 == 'yes':
 
 
 """Task4"""
-flag33 = input("\nMove to the next task?  [y/n] : ")
+flag33 = input("\nMove to task_4?  [y/n] : ")
 if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
     
     np.random.seed(666)
@@ -321,6 +321,9 @@ if flag33 == 'y' or flag33 == 'Y' or flag33 == 'yes':
 
 def sigmoid(x):
     return 1/ (1+np.exp(-x)) 
+
+def tan(x):
+    return  (1.0 - np.exp(-2*x))/(1.0 + np.exp(-2*x))
     
 def xor_net(x1,x2,w):
     z1 = x1*w[0] + x2*w[1] + w[2]
@@ -362,11 +365,11 @@ def testing():
     np.random.seed(666)
     #weights = np.random.normal(size=9).round(3)
     weights = np.random.uniform(0, 1, 9)
-    hta = 0.01
+    hta = input("Provide the learning-rate value: ")
     mse_plot = []
     i = 1
     while mse(weights)[1] != 0:    
-        weights = weights - hta*grdmse(weights)
+        weights = weights - float(hta)*grdmse(weights)
         yy , _ = mse(weights)
         mse_plot.append(yy)    
         print("Epoch: %s  "%i + "Error: " + str(mse(weights)[0]) + " Missclassified: " + str(mse(weights)[1]))
@@ -378,7 +381,7 @@ def testing():
 
 
 # Call the above functions
-flagg_teliko = input("\nMove to the next task?  [y/n] : ")
+flagg_teliko = input("\nMove to task_5?  [y/n] : ")
 if flagg_teliko == "Y" or flagg_teliko == "y" or flagg_teliko == "yes":
     print("\n---TASK_5---")
     print("\nBuild a multyclass perceptron algorithm for the Xor problem using Gradient-Descent.")
