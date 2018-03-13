@@ -18,3 +18,8 @@ networkx
 graphviz
 pygraphviz
 scipy
+
+ 
+
+
+For Plots.py: Load and run Main.py first (better in Spyder or another python-IDE) and then run Plots.py 
