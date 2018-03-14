@@ -17,10 +17,10 @@ import matplotlib.pyplot as plt
 
 
 # Import the data
-train_In = np.loadtxt("/home/dead/Documents/NN/NN_Project1/data/train_in.csv", delimiter = ',')
-train_Out = np.loadtxt("/home/dead/Documents/NN/data/train_out.csv", delimiter = ',')
-test_In = np.loadtxt("/home/dead/Documents/NN/NN_Project1/data/test_in.csv", delimiter = ',')
-test_Out= np.loadtxt("/home/dead/Documents/NN/NN_Project1/data/test_out.csv", delimiter = ',')
+train_In = np.loadtxt("data/train_in.csv", delimiter = ',')
+train_Out = np.loadtxt("data/train_out.csv", delimiter = ',')
+test_In = np.loadtxt("data/test_in.csv", delimiter = ',')
+test_Out= np.loadtxt("data/test_out.csv", delimiter = ',')
 
 # Preprocess the data#
 ######################
@@ -326,14 +326,16 @@ def tan(x):
     return  (1.0 - np.exp(-2*x))/(1.0 + np.exp(-2*x))
     
 def xor_net(x1,x2,w):
+    # Write it analytical like the linear math equation
+    # The two hidden nodes
     z1 = x1*w[0] + x2*w[1] + w[2]
     z2 = x1*w[3] + x2*w[4] + w[5]
-    
+    # Pluge them into sigmoid function
     a1 = sigmoid(z1)
     a2 = sigmoid(z2)
-    
+    # Third node for the output
     z3 = a1*w[6] + a2*w[7] + w[8]
-    
+    # FINAL-Output for sigmoid
     out = sigmoid(z3)
     out = np.array(out)   
     return out
