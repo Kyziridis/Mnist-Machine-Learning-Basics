@@ -12,8 +12,7 @@ from itertools import combinations,  product
 from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
-
-
+from time import time
 
 
 # Import the data
@@ -367,7 +366,7 @@ def testing():
     np.random.seed(666)
     #weights = np.random.normal(size=9).round(3)
     weights = np.random.uniform(0, 1, 9)
-    hta = input("Provide the learning-rate value: ")
+    hta = 0.1
     mse_plot = []
     i = 1
     while mse(weights)[1] != 0:    
@@ -390,8 +389,9 @@ if flagg_teliko == "Y" or flagg_teliko == "y" or flagg_teliko == "yes":
     
     flag55 = input("\nStart training the Xor-Network?  [y/n] : ")
     if flag55 == 'y' or flag55 == 'Y' or flag55 == 'yes':
+        start = time()
         testing()
-
+        print('time' + str(time()-start))
 
 
 
