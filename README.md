@@ -22,7 +22,7 @@ Report is available for further information on the Machine Learning algorithms.
 
 Research on convolutional auto-envoders on Cifar10 dataset for noising/denoising, and sound denoising as well. 
 
-### Recurrent LSTM for language modeling
+#### Recurrent LSTM for language modeling
 
 Deep recurrent neural-networks on language generation, translation and adding two short integers.
 
